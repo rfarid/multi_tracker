@@ -61,7 +61,7 @@ class Compressor:
                 p = '/multi_tracker/' + nodenum + '/delta_video/' + parameter
                 self.params[parameter] = rospy.get_param(p)
             except:
-                print 'Using default parameter: ', parameter, ' = ', value
+                print 'delat_video_simplebuffer::Using default parameter: ', parameter, ' = ', value
         
         # initialize the node
         rospy.init_node('delta_compressor_' + nodenum)

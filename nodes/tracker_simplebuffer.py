@@ -70,7 +70,7 @@ class Tracker:
                 p = '/multi_tracker/' + nodenum + '/tracker/' + parameter
                 self.params[parameter] = rospy.get_param(p)
             except:
-                print 'Using default parameter: ', parameter, ' = ', value
+                print 'tracker_simplebuffer::Using default parameter: ', parameter, ' = ', value
 	
         self.experiment_basename = rospy.get_param('/multi_tracker/' + nodenum + '/experiment_basename', 'none')
         if self.experiment_basename == 'none':
