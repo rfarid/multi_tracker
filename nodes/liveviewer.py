@@ -19,6 +19,7 @@ from multi_tracker.msg import Trackedobject, Trackedobjectlist
 from multi_tracker.srv import resetBackgroundService, addImageToBackgroundService
 
 import image_processing
+CONTOUR_COLOR=(255,0,0)
 
 from distutils.version import LooseVersion, StrictVersion
 print 'Using open cv: ' + cv2.__version__
@@ -91,7 +92,7 @@ class LiveViewer:
                     p = '/multi_tracker/' + nodenum + '/tracker/' + parameter
                     self.params[parameter] = rospy.get_param(p)
                 except:
-                    print 'Using default parameter: ', parameter, ' = ', value
+                    print 'liveviewer::Using default parameter: ', parameter, ' = ', value
                 
         # initialize the node
         rospy.init_node('liveviewer_' + nodenum)
@@ -179,7 +180,6 @@ class LiveViewer:
         else:
             self.imgOutput = self.imgScaled
         
-        
         # Draw ellipses from contours
         if self.contours is not None:
             for c, contour in enumerate(self.contours.contours):
@@ -194,7 +194,7 @@ class LiveViewer:
                 center = (int(contour.x), int(contour.y))
                 angle = int(contour.angle)
                 axes = (int(np.min([a,b])), int(np.max([a,b])))
-                cv2.ellipse(self.imgOutput, center, axes, angle, 0, 360, (0,255,0), 2 )
+                cv2.ellipse(self.imgOutput, center, axes, angle, 0, 360, CONTOUR_COLOR, 2 )
         
         # Display the image | Draw the tracked trajectories
         for objid, trajec in self.tracked_trajectories.items():
