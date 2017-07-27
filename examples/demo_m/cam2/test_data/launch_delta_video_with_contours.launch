@@ -1,0 +1,12 @@
+<launch>
+<arg name="path_2" default="/home/rezaf/demo_m/cam2/test_data" />
+
+<rosparam command="load" file="launch_delta_video_parameters.yaml"/>
+
+<node name="rosbag_player_2" pkg="rosbag" type="play" output="screen" args="$(arg path_2)/20170714_164745_N2_delta_video.bag --clock --pause" />
+<node name="delta_video_player_2" pkg="multi_tracker" type="delta_video_player.py" args="--in='/multi_tracker/2/delta_video' --out='/camera2/image_raw' --directory=$(arg path_2)" />
+
+<rosparam command="load" file="liveviewer_parameters.yaml"/>
+<node name="liveview_2" pkg="multi_tracker" type="liveviewer.py" output="screen" args="--nodenum=2" />
+
+</launch>

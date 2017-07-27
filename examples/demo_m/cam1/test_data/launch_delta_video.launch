@@ -1,0 +1,10 @@
+<launch>
+<arg name="path" default="/home/rezaf/demo_m/cam1/test_data" />
+
+<rosparam command="load" file="launch_delta_video_parameters.yaml"/>
+
+<node name="rosbag_player" pkg="rosbag" type="play" output="screen" args="$(arg path)/20170711_134625_N1_delta_video.bag --clock --pause" />
+<node name="delta_video_player" pkg="multi_tracker" type="delta_video_player.py" args="--in='/multi_tracker/1/delta_video' --out='/camera1/image_raw' --directory=$(arg path)" />
+<node name="image_viewer" pkg="image_view" type="image_view" args="image:=/camera1/image_raw" />
+
+</launch>
